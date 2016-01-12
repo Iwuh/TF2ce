@@ -7,3 +7,6 @@ class FileEditor:
         setup = configparser.ConfigParser()
         setup.read_file(open('editor/settings.ini'))
         self.loc = setup['Config']['Path']
+
+    def parse_command(self, command):
+        pass

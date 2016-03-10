@@ -31,6 +31,7 @@ def tf2ce_help():
         main()
     else:
         print("Not a valid help command.")
+        tf2ce_help()
 
 config = fileeditor.FileEditor()
 

@@ -23,7 +23,7 @@ class FileEditor:
                               "0 for autoexec: ")
         texttoadd = input("Enter the line you'd like to append: ")
         try:
-            for i in classestoedit:
+            for i in classestoedit.split(" "):
                 with open(self.loc + "/%s.cfg" % self.MercDict[i], "a+") as f:
                     f.write("")
                     f.write(texttoadd)

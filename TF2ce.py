@@ -1,4 +1,4 @@
-from editor import fileeditor
+from editor import fileeditor, settingseditor
 import sys
 
 
@@ -7,8 +7,7 @@ def main():
     if command == "exit":
         sys.exit()
     elif command == "settings":
-        # TODO: Add settings functionality
-        pass
+        settings.settings_prompt()
     elif command == "help":
         tf2ce_help()
     else:
@@ -34,6 +33,7 @@ def tf2ce_help():
         tf2ce_help()
 
 config = fileeditor.FileEditor()
+settings = settingseditor.SettingsEditor()
 
 if __name__ == "__main__":
     print("TF2 Config Editor")

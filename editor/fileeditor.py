@@ -17,6 +17,8 @@ class FileEditor:
             self.add_line()
         elif command == "read":
             self.read_file()
+        else:
+            print("\"%s\" is not a valid command." % command)
 
     def add_line(self):
         classestoedit = input("Input the config files you'd like to edit, separated by spaces. 1-9 for classes, "
@@ -36,7 +38,7 @@ class FileEditor:
             print("Can only read one file at a time.")
         else:
             try:
-                with open(self.loc + "/%s.cfg" % self.MercDict[i], "r") as f:
+                with open(self.loc + "/%s.cfg" % self.MercDict[classtoread], "r") as f:
                     print(f.read())
             except KeyError:
                 print("That number doesn't correspond to a valid config file.")

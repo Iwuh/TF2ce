@@ -16,11 +16,11 @@ class SettingsEditor:
         self.loc = setup['Config']['Path']
 
     def settings_prompt(self):
-        command = input("1: OS \n 2: Location \n")
+        command = input(" 1: OS \n 2: Location \n")
         if command == "1" or command.lower() == "os":
-            pass
+            self.change_os()
         elif command == "2" or command.lower() == "location":
-            pass
+            self.change_path()
         else:
             print("Not a valid option.")
             self.settings_prompt()
@@ -42,10 +42,10 @@ class SettingsEditor:
                         oschange['Config']['Path'] = self.DefaultPaths['windows32']
                 else:
                     oschange['Config']['Path'] = self.DefaultPaths[newos.lower()]
-                with open('editor/settings.ini') as f:
+                with open('editor/settings.ini', "w") as f:
                     oschange.write(f)
                 print("OS has been changed.")
-                print("Config location has been reset to the default for %s" % newos)
+                print("Config location has been reset to the default for %s." % newos)
             else:
                 print("%s is not a valid choice." % newos)
 
@@ -54,7 +54,7 @@ class SettingsEditor:
         pathchange = configparser.ConfigParser()
         pathchange.read_file(open('editor/settings.ini'))
         pathchange['Config']['Path'] = newpath
-        with open('editor/settings.ini') as f:
+        with open('editor/settings.ini', "w") as f:
             pathchange.write(f)
         print("Path to config file changed.")
         if not(os.path.exists(newpath)):

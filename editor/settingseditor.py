@@ -26,28 +26,26 @@ class SettingsEditor:
             self.settings_prompt()
 
     def change_os(self):
-        choice = input("Current OS is %s. Change? [y/n]" % self.platform)
-        if choice == "y":
-            oschange = configparser.ConfigParser()
-            oschange.read_file(open('editor/settings.ini'))
-            newos = input("Change OS to: [Windows/Mac/Linux]")
-            if newos == self.platform:
-                print("That is already the current OS.")
-            elif newos.lower() == "windows" or newos.lower() == "mac" or newos.lower() == "linux":
-                oschange['User']['Platform'] = newos
-                if newos.lower() == "windows":
-                    if os.path.exists('C:\Program Files (x86)'):
-                        oschange['Config']['Path'] = self.DefaultPaths['windows64']
-                    else:
-                        oschange['Config']['Path'] = self.DefaultPaths['windows32']
+        oschange = configparser.ConfigParser()
+        oschange.read_file(open('editor/settings.ini'))
+        newos = input("Change OS to: [Windows/Mac/Linux]").lower()
+        if newos == self.platform:
+            print("That is already the current OS.")
+        elif newos in ["windows", "mac", "linux"]:
+            oschange['User']['Platform'] = newos
+            if newos == "windows":
+                if os.path.exists('C:\Program Files (x86)'):
+                    oschange['Config']['Path'] = self.DefaultPaths['windows64']
                 else:
-                    oschange['Config']['Path'] = self.DefaultPaths[newos.lower()]
-                with open('editor/settings.ini', "w") as f:
-                    oschange.write(f)
-                print("OS has been changed.")
-                print("Config location has been reset to the default for %s." % newos)
+                    oschange['Config']['Path'] = self.DefaultPaths['windows32']
             else:
-                print("%s is not a valid choice." % newos)
+                oschange['Config']['Path'] = self.DefaultPaths[newos]
+            with open('editor/settings.ini', "w") as f:
+                oschange.write(f)
+            print("OS has been changed.")
+            print("Config location has been reset to the default for %s." % newos)
+        else:
+            print("%s is not a valid choice." % newos)
 
     def change_path(self):
         newpath = input("Enter path to config file location: ")
